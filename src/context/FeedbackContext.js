@@ -27,14 +27,14 @@ export const FeedbackProvider = ({ children }) => {
 		edit: false,
 	});
 
-	// Delete Feedback
+	// Delete Feedback Item
 	const deleteFeedback = (id) => {
 		if (window.confirm('Are you sure you want to delete this feedback?')) {
 			setFeedback(feedback.filter((item) => item.id !== id));
 		}
 	};
 
-	// Add Feedback
+	// Add Feedback Item
 	const addFeedback = (newFeedback) => {
 		newFeedback.id = uuidv4();
 		setFeedback([newFeedback, ...feedback]);
@@ -48,6 +48,13 @@ export const FeedbackProvider = ({ children }) => {
 		});
 	};
 
+	// Update Feedback Item
+	const updateFeedback = (id, updItem) => {
+		setFeedback(
+			feedback.map((item) => (item.id === id ? { ...item, ...updItem } : item))
+		);
+	};
+
 	return (
 		<FeedbackContext.Provider
 			value={{
@@ -56,6 +63,7 @@ export const FeedbackProvider = ({ children }) => {
 				deleteFeedback,
 				addFeedback,
 				editFeedback,
+				updateFeedback,
 			}}>
 			{children}
 		</FeedbackContext.Provider>
