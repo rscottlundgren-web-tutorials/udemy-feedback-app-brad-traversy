@@ -12,14 +12,12 @@ export const FeedbackProvider = ({ children }) => {
 	});
 
 	useEffect(() => {
-		console.log(123);
+		fetchFeedback();
 	}, []);
 
 	// Fetch All Feedback Items
 	const fetchFeedback = async () => {
-		const response = await fetch(
-			`http://localhost:5001/feedback?_sort=id&_order=desc`
-		);
+		const response = await fetch(`/feedback?_sort=id&_order=desc`);
 		const data = await response.json();
 
 		setFeedback(data);
